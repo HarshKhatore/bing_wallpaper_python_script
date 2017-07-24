@@ -11,14 +11,18 @@ Date: 24 July, 2017
 # Modules not present by-default in Python 2.7.13. Install these seperately before using this script.
 # 1. requests
 
+import installation
 import json                                         # For using json functionalities
-import requests                                     # For using HTTP and HTTPS service to access a webpage
+try:
+    import requests                                 # For using HTTP and HTTPS service to access a webpage
+except ImportError:
+    installation.install()
+    import requests
 from requests.exceptions import ConnectionError     # For ConnectionError handling
 import os                                           # For using operating system services
 import datetime                                     # For using date for naming the wallpaper image
 import time                                         # For using sleep()
 import ctypes                                       # For calling functions outside the Python environment
-
 
 def get_bing_image_url():
     """ Returns the URL of Bing image of the day """
