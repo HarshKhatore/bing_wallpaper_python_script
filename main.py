@@ -11,8 +11,7 @@ Date: 24 July, 2017
 # Modules not present by-default in Python 2.7.13. Install these seperately before using this script.
 # 1. requests
 
-from PIL import Image
-import urllib
+import urllib                                       # For downloading the image to the local path
 import installation
 import json                                         # For using json functionalities
 try:
