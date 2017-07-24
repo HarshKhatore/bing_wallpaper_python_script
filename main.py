@@ -11,6 +11,8 @@ Date: 24 July, 2017
 # Modules not present by-default in Python 2.7.13. Install these seperately before using this script.
 # 1. requests
 
+from PIL import Image
+import urllib
 import installation
 import json                                         # For using json functionalities
 try:
@@ -42,31 +44,35 @@ def get_bing_image_url():
         
     try:    
         url = "http://bing.com"+requests.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US").json()['images'][0]['url']
+        print url
         return url
     except ConnectionError as e:
-        return "Connection Error"
+        return "Connection Error",e
     
     
 def get_image_path():
     """ Returns the local path of the downloaded image 
         
-        Final path -> "C:\Users\<username>\Desktop\bing\'bing <date>.jpg' "
+        Final path -> "C:\Users\<username>\Desktop\bing\'bing-<date>.jpg' "
     """
-        
     time = datetime.datetime.now()                                  # Getting date and time of the day
     wpName = 'bing ' + time.strftime('%d-%m-%y') + '.jpg'           # Setting the wallpaper name
-    
+        
     username = os.environ.get("USERNAME")                           # Setting target directory as a folder in desktop
     targetDir = 'C:\Users\\' + username + '\Desktop\\bing\\'
     if not os.path.exists(targetDir):                               # Checking if the directory exists or not. If not, make a new directory
         os.makedirs(targetDir)
     
-    imagePath = targetDir + wpName                                 # Final path 
+    imagePath = targetDir + wpName                                  # Final path 
     url = get_bing_image_url()                                      # Get the image link form the 'get_bing_image_url' function
     if set(url.split()) == set("Connection Error".split()):
         return False
-    requests.get(url, imagePath)                                   # Download the image to the path
     
+    urllib.urlretrieve(url, imagePath)                           # Download the image to the path
+	
+    if not os.path.exists(imagePath):                               # Checking if the directory exists or not. If not, make a new directory
+        print "Image not present"
+
     return imagePath
 
 
