@@ -12,4 +12,4 @@ This script runs in Windows 8, 8.1 and 10.
 - [x] A script to automatically download and install the required modules.
 - [ ] An executable form of this script.
 - [x] Automatic execution of this script every day. Also, check for error conditions and handle them.
-- [ ] Develope a proper container for all functionalities.
+- [ ] Develop a proper container for all functionalities.
